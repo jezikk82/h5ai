@@ -11,6 +11,7 @@ if (window.attachEvent && !window.addEventListener) { throw 'no-browser'; }
 // jQuery libs
 // -----------
 // @include "lib/jquery-*.js"
+// @include "lib/jquery.filedrop-*.js"
 // @include "lib/jquery.fracs-*.js"
 // @include "lib/jquery.mousewheel-*.js"
 // @include "lib/jquery.scrollpanel-*.js"
