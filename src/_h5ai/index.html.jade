@@ -1,7 +1,7 @@
 doctype 5
-//if lt IE 10
+//if lt IE 9
 	<html class="no-js no-browser" lang="en">
-//[if gt IE 9]><!
+//[if gt IE 8]><!
 html.no-js.browser( lang="en" )
 	//<![endif]
 
@@ -13,6 +13,7 @@ html.no-js.browser( lang="en" )
 		meta( name="viewport", content="width=device-width, initial-scale=1" )
 		link( rel="shortcut icon", href="client/images/favicon/favicon-16-32.ico" )
 		link( rel="apple-touch-icon-precomposed", type="image/png", href="client/images/favicon/favicon-152.png" )
+		//- link( rel="stylesheet", href="//fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic,700italic|Ubuntu:300italic,700italic,300,700" )
 		link( rel="stylesheet", href="client/css/styles.css" )
 		script( src="client/js/scripts.js", data-mode="info" )
 
@@ -30,17 +31,13 @@ html.no-js.browser( lang="en" )
 
 		div#bottombar.clearfix
 			span.left
+				a#h5ai-reference( href="{{pkg.url}}", title="{{pkg.name}} · {{pkg.description}}" )
+					| {{pkg.name}} {{pkg.version}}
 				span.noJsMsg
 					| ⚡ JavaScript disabled! ⚡
 				span.noBrowserMsg
-					| ⚡ Works best in 
+					| ⚡ Unsupported browser! Works best in 
 					a( href="http://browsehappy.com" ) modern browsers
-					| ! ⚡
+					| . ⚡
 			span.right
-				a( href="{{pkg.url}}", title="{{pkg.name}} {{pkg.version}} · {{pkg.description}}" )
-					| {{pkg.name}}
-				span
-					|  by 
-				a( href="https://twitter.com/{{pkg.twitter}}", title="{{pkg.author}}" )
-					| @{{pkg.twitter}}
 			span.center

@@ -29,10 +29,10 @@ class Thumb {
 		if ($type === "img") {
 			$capture_path = $source_path;
 		} else if ($type === "mov") {
-			if (HAS_CMD_FFMPEG) {
-				$capture_path = $this->capture(Thumb::$FFMPEG_CMDV, $source_path);
-			} else if (HAS_CMD_AVCONV) {
+			if (HAS_CMD_AVCONV) {
 				$capture_path = $this->capture(Thumb::$AVCONV_CMDV, $source_path);
+			} else if (HAS_CMD_FFMPEG) {
+				$capture_path = $this->capture(Thumb::$FFMPEG_CMDV, $source_path);
 			}
 		} else if ($type === "doc" && HAS_CMD_CONVERT) {
 			$capture_path = $this->capture(Thumb::$CONVERT_CMDV, $source_path);

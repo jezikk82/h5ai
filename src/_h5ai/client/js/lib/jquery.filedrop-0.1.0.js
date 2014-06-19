@@ -29,13 +29,12 @@
 
   jQuery.event.props.push("dataTransfer");
 
+  var empty = function () {}
   var default_opts = {
       fallback_id: '',
       url: '',
       refresh: 1000,
       paramname: 'userfile',
-      requestType: 'POST',    // just in case you want to use another HTTP verb
-      allowedfileextensions:[],
       allowedfiletypes:[],
       maxfiles: 25,           // Ignored if queuefiles is set > 0
       maxfilesize: 1,         // MB file size limit
@@ -63,27 +62,14 @@
       globalProgressUpdated: empty,
       speedUpdated: empty
       },
-      errors = ["BrowserNotSupported", "TooManyFiles", "FileTooLarge", "FileTypeNotAllowed", "NotFound", "NotReadable", "AbortError", "ReadError", "FileExtensionNotAllowed"];
+      errors = ["BrowserNotSupported", "TooManyFiles", "FileTooLarge", "FileTypeNotAllowed", "NotFound", "NotReadable", "AbortError", "ReadError"],
+      doc_leave_timer, stop_loop = false,
+      files_count = 0,
+      files;
 
   $.fn.filedrop = function(options) {
     var opts = $.extend({}, default_opts, options),
-        global_progress = [],
-        doc_leave_timer, stop_loop = false,
-        files_count = 0,
-        files;
-
-    $('#' + opts.fallback_id).css({
-      display: 'none',
-      width: 0,
-      height: 0
-    });
-
-    this.on('drop', drop).on('dragstart', opts.dragStart).on('dragenter', dragEnter).on('dragover', dragOver).on('dragleave', dragLeave);
-    $(document).on('drop', docDrop).on('dragenter', docEnter).on('dragover', docOver).on('dragleave', docLeave);
-
-    this.on('click', function(e){
-      $('#' + opts.fallback_id).trigger(e);
-    });
+        global_progress = [];
 
     $('#' + opts.fallback_id).change(function(e) {
       opts.drop(e);
@@ -92,10 +78,8 @@
       upload();
     });
 
-    function drop(e) {
+    var drop = function (e) {
       if( opts.drop.call(this, e) === false ) return false;
-      if(!e.dataTransfer)
-        return;
       files = e.dataTransfer.files;
       if (files === null || files === undefined || files.length === 0) {
         opts.error(errors[0]);
@@ -107,7 +91,7 @@
       return false;
     }
 
-    function getBuilder(filename, filedata, mime, boundary) {
+    var getBuilder = function (filename, filedata, mime, boundary) {
       var dashdash = '--',
           crlf = '\r\n',
           builder = '',
@@ -120,10 +104,6 @@
           var pair = this.split("=", 2),
               name = decodeURIComponent(pair[0]),
               val  = decodeURIComponent(pair[1]);
-
-          if (pair.length !== 2) {
-              return;
-          }
 
           builder += dashdash;
           builder += boundary;
@@ -144,7 +124,7 @@
       builder += boundary;
       builder += crlf;
       builder += 'Content-Disposition: form-data; name="' + (paramname||"") + '"';
-      builder += '; filename="' + filename + '"';
+      builder += '; filename="' + encodeURIComponent(filename) + '"';
       builder += crlf;
 
       builder += 'Content-Type: ' + mime;
@@ -161,7 +141,7 @@
       return builder;
     }
 
-    function progress(e) {
+    var progress = function (e) {
       if (e.lengthComputable) {
         var percentage = Math.round((e.loaded * 100) / e.total);
         if (this.currentProgress !== percentage) {
@@ -185,7 +165,7 @@
       }
     }
 
-    function globalProgress() {
+    var globalProgress = function () {
       if (global_progress.length === 0) {
         return;
       }
@@ -201,7 +181,7 @@
     }
 
     // Respond to an upload
-    function upload() {
+    var upload = function () {
       stop_loop = false;
 
       if (!files) {
@@ -213,21 +193,6 @@
         for(var fileIndex = files.length;fileIndex--;) {
           if(!files[fileIndex].type || $.inArray(files[fileIndex].type, opts.allowedfiletypes) < 0) {
             opts.error(errors[3], files[fileIndex]);
-            return false;
-          }
-        }
-      }
-
-      if (opts.allowedfileextensions.push && opts.allowedfileextensions.length) {
-        for(var fileIndex = files.length;fileIndex--;) {
-          var allowedextension = false;
-          for (i=0;i<opts.allowedfileextensions.length;i++){
-            if (files[fileIndex].name.substr(files[fileIndex].name.length-opts.allowedfileextensions[i].length) == opts.allowedfileextensions[i]) {
-              allowedextension = true;
-            }
-          }
-          if (!allowedextension){
-            opts.error(errors[8], files[fileIndex]);
             return false;
           }
         }
@@ -253,13 +218,13 @@
 
       // Helper function to enable pause of processing to wait
       // for in process queue to complete
-      var pause = function(timeout) {
+      var pause = function (timeout) {
         setTimeout(process, timeout);
         return;
       };
 
       // Process an upload, recursive
-      var process = function() {
+      var process = function () {
 
         var fileIndex;
 
@@ -320,8 +285,7 @@
             reader.onloadend = !opts.beforeSend ? send : function (e) {
               opts.beforeSend(files[fileIndex], fileIndex, function () { send(e); });
             };
-
-            reader.readAsDataURL(files[fileIndex]);
+            reader.readAsBinaryString(files[fileIndex]);
 
           } else {
             filesRejected++;
@@ -343,9 +307,9 @@
         }
       };
 
-      var send = function(e) {
+      var send = function (e) {
 
-        var fileIndex = (e.srcElement || e.target).index;
+        var fileIndex = ((typeof(e.srcElement) === "undefined") ? e.target : e.srcElement).index;
 
         // Sometimes the index is not attached to the
         // event object. Find it by size. Hack for sure.
@@ -368,11 +332,10 @@
           xhr.withCredentials = opts.withCredentials;
         }
 
-        var data = atob(e.target.result.split(',')[1]);
         if (typeof newName === "string") {
-          builder = getBuilder(newName, data, mime, boundary);
+          builder = getBuilder(newName, e.target.result, mime, boundary);
         } else {
-          builder = getBuilder(file.name, data, mime, boundary);
+          builder = getBuilder(file.name, e.target.result, mime, boundary);
         }
 
         upload.index = index;
@@ -384,15 +347,14 @@
         upload.startData = 0;
         upload.addEventListener("progress", progress, false);
 
-        // Allow url to be a method
-        if (jQuery.isFunction(opts.url)) {
-            xhr.open(opts.requestType, opts.url(), true);
-        } else {
-            xhr.open(opts.requestType, opts.url, true);
-        }
+	// Allow url to be a method
+	if (jQuery.isFunction(opts.url)) {
+	  xhr.open("POST", opts.url(), true);
+	} else {
+	  xhr.open("POST", opts.url, true);
+	}
 
         xhr.setRequestHeader('content-type', 'multipart/form-data; boundary=' + boundary);
-        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
         // Add headers
         $.each(opts.headers, function(k, v) {
@@ -407,48 +369,50 @@
         opts.uploadStarted(index, file, files_count);
 
         xhr.onload = function() {
-            var serverResponse = null;
+          var serverResponse = null;
 
-            if (xhr.responseText) {
-              try {
-                serverResponse = jQuery.parseJSON(xhr.responseText);
-              }
-              catch (e) {
-                serverResponse = xhr.responseText;
-              }
+          if (xhr.responseText) {
+            try {
+              serverResponse = jQuery.parseJSON(xhr.responseText);
             }
-
-            var now = new Date().getTime(),
-                timeDiff = now - start_time,
-                result = opts.uploadFinished(index, file, serverResponse, timeDiff, xhr);
-            filesDone++;
-
-            // Remove from processing queue
-            processingQueue.forEach(function(value, key) {
-              if (value === fileIndex) {
-                processingQueue.splice(key, 1);
-              }
-            });
-
-            // Add to donequeue
-            doneQueue.push(fileIndex);
-
-            // Make sure the global progress is updated
-            global_progress[global_progress_index] = 100;
-            globalProgress();
-
-            if (filesDone === (files_count - filesRejected)) {
-              afterAll();
+            catch (e) {
+              serverResponse = xhr.responseText;
             }
-            if (result === false) {
-              stop_loop = true;
-            }
+          }
 
+          var now = new Date().getTime(),
+              timeDiff = now - start_time,
+              result = opts.uploadFinished(index, file, serverResponse, timeDiff, xhr);
+          filesDone++;
+
+          // Remove from processing queue
+          processingQueue.forEach(function(value, key) {
+            if (value === fileIndex) {
+              processingQueue.splice(key, 1);
+            }
+          });
+
+          // Add to donequeue
+          doneQueue.push(fileIndex);
+
+          // Make sure the global progress is updated
+          global_progress[global_progress_index] = 100;
+          globalProgress();
+
+          if (filesDone === (files_count - filesRejected)) {
+            afterAll();
+          }
+          if (result === false) {
+            stop_loop = true;
+          }
 
           // Pass any errors to the error option
           if (xhr.status < 200 || xhr.status > 299) {
             opts.error(xhr.statusText, file, fileIndex, xhr.status);
           }
+        };
+        xhr.onerror = function() { // in order to handle cross-origin server crashes
+            xhr.onload();
         };
       };
 
@@ -456,7 +420,7 @@
       process();
     }
 
-    function getIndexBySize(size) {
+    var getIndexBySize = function (size) {
       for (var i = 0; i < files_count; i++) {
         if (files[i].size === size) {
           return i;
@@ -466,69 +430,84 @@
       return undefined;
     }
 
-    function rename(name) {
+    var rename = function (name) {
       return opts.rename(name);
     }
 
-    function beforeEach(file) {
+    var beforeEach = function (file) {
       return opts.beforeEach(file);
     }
 
-    function afterAll() {
+    var afterAll = function () {
       return opts.afterAll();
     }
 
-    function dragEnter(e) {
+    var dragEnter = function (e) {
       clearTimeout(doc_leave_timer);
       e.preventDefault();
       opts.dragEnter.call(this, e);
     }
 
-    function dragOver(e) {
+    var dragOver = function (e) {
       clearTimeout(doc_leave_timer);
       e.preventDefault();
       opts.docOver.call(this, e);
       opts.dragOver.call(this, e);
     }
 
-    function dragLeave(e) {
-      clearTimeout(doc_leave_timer);
-      opts.dragLeave.call(this, e);
-      e.stopPropagation();
+    var dragLeave = function (e) {
+      var rect = this.getBoundingClientRect();
+      var mouseEvt = e.originalEvent;
+      // Check the mouseEvent coordinates are outside of the rectangle
+      if ((mouseEvt.x === undefined && mouseEvt.y === undefined)
+        || mouseEvt.x >= rect.left + rect.width || mouseEvt.x < rect.left
+        || mouseEvt.y >= rect.top + rect.height || mouseEvt.y < rect.top) {
+        // We are leaving for real!
+        clearTimeout(doc_leave_timer);
+        opts.dragLeave.call(this, e);
+        e.stopPropagation();
+      }
     }
 
-    function docDrop(e) {
+    var docDrop = function (e) {
       e.preventDefault();
       opts.docLeave.call(this, e);
       return false;
     }
 
-    function docEnter(e) {
+    var docEnter = function (e) {
       clearTimeout(doc_leave_timer);
       e.preventDefault();
       opts.docEnter.call(this, e);
       return false;
     }
 
-    function docOver(e) {
+    var docOver = function (e) {
       clearTimeout(doc_leave_timer);
       e.preventDefault();
       opts.docOver.call(this, e);
       return false;
     }
 
-    function docLeave(e) {
+    var docLeave = function (e) {
       doc_leave_timer = setTimeout((function(_this) {
         return function() {
           opts.docLeave.call(_this, e);
         };
       })(this), 200);
     }
+    var self = this;
 
-    return this;
+    self.on('drop', drop).on('dragstart', opts.dragStart).on('dragenter', dragEnter).on('dragover', dragOver).on('dragleave', dragLeave);
+    $(document).on('drop', docDrop).on('dragenter', docEnter).on('dragover', docOver).on('dragleave', docLeave);
+
+    self.destroy = function() {
+      self.off('drop', drop).off('dragstart', opts.dragStart).off('dragenter', dragEnter).off('dragover', dragOver).off('dragleave', dragLeave);
+      $(document).off('drop', docDrop).off('dragenter', docEnter).off('dragover', docOver).off('dragleave', docLeave);
+    }
+
+    return self;
   };
-
-  function empty() {}
 
   try {
     if (XMLHttpRequest.prototype.sendAsBinary) {
@@ -548,8 +527,7 @@
       if ('ArrayBufferView' in window)
         this.send(ui8a);
       else
-        this.send(ui8a.buffer);
+        this.send(ui8a);
     };
   } catch (e) {}
-
 })(jQuery);

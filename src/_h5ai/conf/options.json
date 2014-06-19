@@ -45,7 +45,7 @@ Options
 	- unmanagedInNewWindow: open unmanaged links in new window/tab
 	*/
 	"view": {
-		"binaryPrefix": false,
+		"binaryPrefix": true,
 		"hidden": ["^\\.", "^_{{pkg.name}}"],
 		"hideFolders": false,
 		"hideIf403": true,
@@ -69,7 +69,7 @@ Options
 	- interval: number, update interval in milliseconds, at least 1000
 	*/
 	"autorefresh": {
-		"enabled": false,
+		"enabled": true,
 		"interval": 5000
 	},
 
@@ -102,9 +102,9 @@ Options
 	*/
 	"download": {
 		"enabled": true,
-		"type": "php-tar",
+		"type": "shell-zip",
 		"packageName": null,
-		"alwaysVisible": false
+		"alwaysVisible": true
 	},
 
 	/*
@@ -130,7 +130,7 @@ Options
 	*/
 	"foldersize": {
 		"enabled": true,
-		"type": "php"
+		"type": "shell-du"
 	},
 
 	/*
@@ -357,5 +357,34 @@ Options
 		"enabled": true,
 		"slide": true,
 		"maxSubfolders": 50
-	}
+	},
+
+
+	/* [EXPERIMENTAL]
+	Allow file and folder deletion. Be careful with this option!
+	*/
+	"delete": {
+		"enabled": false
+	},
+
+ 	/* [EXPERIMENTAL]
+ 	File upload via drag'n'drop. Folders are not supported.
+ 	The working file size seems to be very browser dependent.
+ 
+ 	- maxfiles: number, max number of files per upload
+ 	- maxfilesize: number, file size is in MB
+ 	*/
+ 	"dropbox": {
+ 		"enabled": true,
+ 		"maxfiles": 10,
+ 		"maxfilesize": 1000
+ 	},
+
+	/* [EXPERIMENTAL]
+ 	Allow to rename files.
+ 	No GUI yet.
+ 	*/
+ 	"rename": {
+ 		"enabled": false
+ 	}
 }
