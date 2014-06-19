@@ -375,13 +375,17 @@ Options
  	- maxfilesize: number, file size is in MB
 	- allowedfiletypes: array of types, filetypes allowed by Content-Type.  Empty array means no restrictions
  	- allowedfileextensions: array of extensions, file extensions allowed. Empty array means no restrictions
+
+	for example:
+		"allowedfiletypes": ["image/jpeg","image/png","image/gif"],
+		"allowedfileextensions": [".jpg",".jpeg",".png",".gif",".pdf",".nzb",".torrent"]
 	*/
   	"dropbox": {
  		"enabled": true,
  		"maxfiles": 10,
  		"maxfilesize": 1000,
-		"allowedfiletypes": ["image/jpeg","image/png","image/gif"],
-		"allowedfileextensions": [".jpg",".jpeg",".png",".gif"]
+		"allowedfiletypes": [],
+		"allowedfileextensions": [".jpg",".jpeg",".png",".gif",".pdf",".nzb",".torrent"]
  	},
 
 	/* [EXPERIMENTAL]
