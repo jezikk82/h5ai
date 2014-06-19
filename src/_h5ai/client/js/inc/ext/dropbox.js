@@ -29,7 +29,6 @@ modulejs.define('ext/dropbox', ['_', '$', 'core/settings', 'core/location', 'cor
 
 			var uploads = {},
 				afterUpload = function (err, file) {
-
 					if (file) {
 						uploads[file.name]
 							.addClass(err ? 'error' : 'finished')
@@ -51,7 +50,8 @@ modulejs.define('ext/dropbox', ['_', '$', 'core/settings', 'core/location', 'cor
 				$('html').filedrop({
 
 					paramname: 'userfile',
-
+					allowedfiletypes: settings.allowedfiletypes,
+					allowedfileextensions: settings.allowedfileextensions,
 					maxfiles: settings.maxfiles,
 					maxfilesize: settings.maxfilesize,
 					url: location.getAbsHref(),
