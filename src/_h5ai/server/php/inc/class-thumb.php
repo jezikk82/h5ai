@@ -16,6 +16,10 @@ class Thumb {
 		$this->app = $app;
 		$this->thumbs_path = CACHE_PATH . "/" . Thumb::$THUMB_CACHE;
 		$this->thumbs_href = CACHE_HREF . Thumb::$THUMB_CACHE;
+
+		if (!is_dir($this->thumbs_path)) {
+			@mkdir($this->thumbs_path, 0755, true);
+		}
 	}
 
 
@@ -46,10 +50,6 @@ class Thumb {
 
 		if (!file_exists($source_path)) {
 			return null;
-		}
-
-		if (!is_dir($this->thumbs_path)) {
-			@mkdir($this->thumbs_path, 0755, true);
 		}
 
 		$name = "thumb-" . sha1("$source_path-$width-$height-$mode") . ".jpg";
