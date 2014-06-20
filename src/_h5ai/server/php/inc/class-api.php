@@ -176,7 +176,7 @@ class Api {
 			$d = normalize_path(dirname($href), true);
 			$n = basename($href);
 
-			if ($this->app->is_managed_url($href) && !$this->app->is_hidden($n)) {
+			if ($this->app->is_managed_url($d) && !$this->app->is_hidden($n)) {
 
 				$path = $this->app->to_path($href);
 

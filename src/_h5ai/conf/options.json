@@ -364,7 +364,7 @@ Options
 	Allow file and folder deletion. Be careful with this option!
 	*/
 	"delete": {
-		"enabled": false
+		"enabled": true
 	},
 
  	/* [EXPERIMENTAL]
@@ -384,7 +384,7 @@ Options
  		"enabled": true,
  		"maxfiles": 10,
  		"maxfilesize": 1000,
-		"allowedfiletypes": ["none/none"],
+		"allowedfiletypes": [],
 		"allowedfileextensions": [".jpg",".jpeg",".png",".gif",".pdf",".nzb",".torrent"] 
  	},
 
