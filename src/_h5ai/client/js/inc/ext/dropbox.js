@@ -30,6 +30,12 @@ modulejs.define('ext/dropbox', ['_', '$', 'core/settings', 'core/location', 'cor
 			var uploads = {},
 				afterUpload = function (err, file) {
 					if (file) {
+						if(!uploads[file.name]) {
+							uploads[file.name] = $(uploadTemplate).appendTo('#uploads')
+							.find('.name').text(file.name).end()
+							.find('.size').text(file.size).end()
+							.find('.progress .bar').css('width', 0).end();
+						}
 						uploads[file.name]
 							.addClass(err ? 'error' : 'finished')
 							.find('.progress').replaceWith(err ? '<span class="error">' + err + '</span>' : '<span class="finished">okay</span>');

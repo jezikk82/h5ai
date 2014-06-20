@@ -384,8 +384,8 @@ Options
  		"enabled": true,
  		"maxfiles": 10,
  		"maxfilesize": 1000,
-		"allowedfiletypes": [],
-		"allowedfileextensions": [".jpg",".jpeg",".png",".gif",".pdf",".nzb",".torrent"]
+		"allowedfiletypes": ["none/none"],
+		"allowedfileextensions": [".jpg",".jpeg",".png",".gif",".pdf",".nzb",".torrent"] 
  	},
 
 	/* [EXPERIMENTAL]
