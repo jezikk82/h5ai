@@ -6,13 +6,13 @@ Options
 */
 
 {
-	/* Enable Authentification 
+	/* Enable Authentication 
 	*/	
 	"security": {
 		"enabled": false,
 		"login": "user",
 		"password": "demo",
-		"message": "Authentification Required !"
+		"message": "Authentication Required !"
 	},
 
 	/*
