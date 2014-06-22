@@ -2,7 +2,6 @@
 // other libs
 // ----------
 // @include "lib/modernizr-*.js"
-if (window.attachEvent && !window.addEventListener) { throw 'no-browser'; }
 // @include "lib/underscore-*.js"
 // @include "lib/markdown-*.js"
 // @include "lib/modulejs-*.js"
@@ -12,11 +11,7 @@ if (window.attachEvent && !window.addEventListener) { throw 'no-browser'; }
 // jQuery libs
 // -----------
 // @include "lib/jquery-*.js"
-// @include "lib/jquery.filedrop-*.js"
-// @include "lib/jquery.fracs-*.js"
-// @include "lib/jquery.mousewheel-*.js"
-// @include "lib/jquery.qrcode-*.js"
-// @include "lib/jquery.scrollpanel-*.js"
+// @include "lib/jquery.*.js"
 
 // app
 // ---
@@ -33,29 +28,30 @@ if (window.attachEvent && !window.addEventListener) { throw 'no-browser'; }
 	// @include "inc/**/*.js"
 
 	var	$ = jQuery,
-		mode = $('script[src$="scripts.js"]').data('mode'),
-		url = '.',
-		module = 'main';
+		module = $('script[data-module]').data('module'),
+		url;
 
 	if ($('html').hasClass('no-browser')) {
 		return;
 	}
 
-	if (mode === 'info') {
+	if (module === 'main') {
+		url = '.';
+	} else if (module === 'info') {
 		url = 'server/php/index.php';
-		module = 'info';
+	} else {
+		return;
 	}
 
 	$.ajax({
 		url: url,
 		data: {action: 'get', setup: true, options: true, types: true, theme: true, langs: true},
 		type: 'POST',
-		dataType: 'json',
-		success: function (config) {
+		dataType: 'json'
+	}).done(function (config) {
 
-			modulejs.define('config', config);
-			$(function () { modulejs.require(module); });
-		}
+		modulejs.define('config', config);
+		$(function () { modulejs.require(module); });
 	});
 
 }());
