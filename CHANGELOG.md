@@ -9,6 +9,7 @@
 
 ## v0.25.0 - *2014-06-22*
 
+* adds security authentication
 * adds sidebar
 * adds initial theme support
 * adds icons from [Evolvere Icon Theme](http://franksouza183.deviantart.com/art/Evolvere-Icon-theme-440718295)
@@ -26,7 +27,6 @@
 * disable thumbs in `cache` folder
 * fixes QR code URI origin (issue [#287](https://github.com/lrsjng/h5ai/issues/287))
 * replaces PHP backtick operator with `exec`
-* removes server side file manipulation extensions `dropbox`, `delete` and `rename`
 * updates H5BP to 4.3.0
 * updates jQuery to 2.1.1
 * updates json2.js to 2014-02-04
