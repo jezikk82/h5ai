@@ -144,7 +144,7 @@ class Item {
 		$files = $this->app->read_dir($this->path);
 		$options = $this->app->get_options();
 		foreach ($files as $file) {
-			if($options["view"]["loadsubconf"] && $this->$file == "options.json"){
+			if($options["view"]["loadsubconf"] && $file == "options.json"){
 				$this->app->set_options($this->path . "/" . $file);
 			}else{
 				$item = Item::get($this->app, $this->path . "/" . $file, $cache);
