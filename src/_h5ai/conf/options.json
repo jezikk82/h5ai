@@ -11,7 +11,7 @@ Options
 	"security": {
 		"enabled": false,
 		"login": "user",
-		"password": "demo",
+		"password": "fe01ce2a7fbac8fafaed7c982a04e229", //MD5 of "demo"
 		"message": "Authentication Required !"
 	},
 
