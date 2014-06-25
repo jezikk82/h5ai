@@ -65,6 +65,9 @@ Options
 		"setParentFolderLabels": true,
 		"sizes": [24, 32, 48, 64, 96],
 		"smartBrowsing": true,
+		"suppressicon": false,
+		"suppresslastmodified": false,
+		"suppresssize": false,
 		"theme": "",
 		"unmanaged": ["index.html", "index.htm", "index.php"],
 		"unmanagedInNewWindow": false
