@@ -21,6 +21,10 @@ class App {
 		return $this->options;
 	}
 
+	public function set_options($filename){
+
+		$this->options = load_commented_json($filename);
+	}
 
 	public function get_setup() {
 

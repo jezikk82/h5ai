@@ -33,6 +33,7 @@ Options
 	General view options.
 
 	- binaryPrefix: set to true uses 1024B=1KiB when formatting file sizes (see http://en.wikipedia.org/wiki/Binary_prefix)
+	- loadsubconf: don't reload options.conf in folder
 	- hidden: don't list items matching these regular expressions
 	- hideFolders: hide all folders in the main view
 	- hideIf403: hide files and folders that are not readable by the server
@@ -55,6 +56,7 @@ Options
 	*/
 	"view": {
 		"binaryPrefix": true,
+		"loadsubconf": false,
 		"hidden": ["^\\.", "^_{{pkg.name}}"],
 		"hideFolders": false,
 		"hideIf403": true,
