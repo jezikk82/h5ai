@@ -22,6 +22,7 @@
 * adds filter reset on location change
 * adds option to make download button always visible
 * adds Google UA support
+* adds file manipulation (upload file, rename, delete, add new folder)
 * extends selectable icon sizes (adds 128px, 192px, 256px, 384px)
 * improves preview GUI
 * disable thumbs in `cache` folder
