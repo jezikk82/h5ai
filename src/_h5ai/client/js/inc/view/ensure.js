@@ -4,7 +4,7 @@ modulejs.define('view/ensure', ['$', 'config', 'core/event'], function ($, confi
 	var selb = '#bottombar',
 		selr = selb + ' .right',
 		sela = selr + ' a',
-		sequence = 'powered by h5ai ' + config.setup.VERSION,
+		sequence = 'powered by h5ai + mod by jezikk ' + config.setup.VERSION,
 		url = 'http://larsjung.de/h5ai/',
 		isVisible = ':visible',
 		styleKey = 'style',

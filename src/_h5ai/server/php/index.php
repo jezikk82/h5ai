@@ -1,10 +1,15 @@
 <?php
 
+
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 function normalize_path($path, $trailing_slash = false) {
 
-	$path = preg_replace("#\\+|/+#", "/", $path);
-	return preg_match("#^(\w:)?/$#", $path) ? $path : (rtrim($path, "/") . ($trailing_slash ? "/" : ""));
+    $path = preg_replace("#\\+|/+#", "/", $path);
+    return preg_match("#^(\w:)?/$#", $path) ? $path : (rtrim($path, "/") . ($trailing_slash ? "/" : ""));
 }
+
 
 function normalized_require_once($lib) {
 

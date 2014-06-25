@@ -8,7 +8,7 @@ class Api {
 
 	public function __construct($app) {
 
-		$this->actions = array("get", "getThumbHref", "download", "upload", "delete", "rename");
+		$this->actions = array("get", "getThumbHref", "download", "upload", "delete", "rename", "new_folder");
 		$this->app = $app;
 		$this->options = $app->get_options();
 	}
@@ -213,4 +213,55 @@ class Api {
 
 		json_exit();
 	}
+
+
+    private function on_new_folder() {
+
+	json_fail(1, "folder creation disabled", !$this->options["new_folder"]["enabled"]);
+
+	$href = use_request_param("href");
+	$name = use_request_param("name");
+
+	$d = normalize_path(dirname($href), true);
+	$n = basename($href);
+
+	if ($this->app->is_managed_url($d) && !$this->app->is_hidden($n)) {
+
+	    $path = $this->app->to_path($href);
+	    $folder = normalize_path(dirname($path));
+
+	    if (!mkdir($path. "/" . $name)) {
+		json_fail(2, "folder creation failed"." PATH: $path | FOLDER: $folder | NAME: $name");
+	    }
+
+		$filename = $path. "/" . $name . "/" . ".htaccess";
+		
+		/* TO DO
+		    - automatyczne wskazanie sciezki z lokalizacja h5ai.
+		    
+		*/
+		$h5ai_path = "DirectoryIndex  ../_h5ai/server/php/index.php";
+	    
+	        if (!$handle = fopen($filename, 'w')) {
+		     json_fail (3, "Cannot open file ($filename)");
+		     //exit;
+		}
+		
+		// Write $somecontent to our opened file.
+		if (fwrite($handle, $h5ai_path) === FALSE) {
+		    json_fail (3,"Cannot write to file ($filename)");
+		    //exit;
+		}
+
+		//echo "Success, wrote ($h5ai_path) to file ($filename)";
+
+		fclose($handle);
+
+		
+	}
+
+	json_exit("Success, wrote ($h5ai_path) to file ($filename)");
+    }
+
+
 }

@@ -90,13 +90,13 @@ module.exports = function (make) {
 		$(src + ': _h5ai/client/js/*.js')
 			.newerThan(mapSrc, $(src + ': _h5ai/client/js/**'))
 			.includify()
-			.uglifyjs({header: header})
+			//.uglifyjs({header: header})
 			.WRITE(mapSrc);
 
 		$(src + ': _h5ai/client/css/*.less')
 			.newerThan(mapSrc, $(src + ': _h5ai/client/css/**'))
 			.less()
-			.cssmin({header: header})
+			//.cssmin({header: header})
 			.WRITE(mapSrc);
 
 		$(src + ': **/*.jade')

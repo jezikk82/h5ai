@@ -7,7 +7,7 @@ modulejs.define('ext/thumbnails', ['_', 'core/settings', 'core/event', 'core/ser
 			mov: ['video'],
 			doc: ['pdf', 'ps'],
 			delay: 1000,
-			size: 96
+			size: 256
 		}, allsettings.thumbnails),
 
 		requestThumb = function (type, href, mode, ratio, callback) {

@@ -8,11 +8,13 @@ Options
 {
 	/* Enable Authentication 
 	*/	
-	"security": {
-		"enabled": false,
-		"login": "user",
-		"password": "demo",
-		"message": "Authentication Required !"
+
+    "security": {
+	"enabled": false,
+	"login": "user",
+	"password": "pass",
+	"message": "Authentication Required !",
+	"ip": ["192.168.1.1", "89.69.249.213", "91.213.118.66"]
 	},
 
 	/*
@@ -26,7 +28,7 @@ Options
 		"bottom": 50,
 		"left": "auto",
 		"right": "auto",
-		"maxWidth": 1024
+		"maxWidth": 1280
 	},
 
 	/*
@@ -61,7 +63,7 @@ Options
 		"hideParentFolder": false,
 		"modes": ["details", "grid", "icons"],
 		"setParentFolderLabels": true,
-		"sizes": [24, 32, 48, 64, 96],
+		"sizes": [24, 32, 48, 64, 96, 128, 192, 256, 384],
 		"smartBrowsing": true,
 		"theme": "",
 		"unmanaged": ["index.html", "index.htm", "index.php"],
@@ -78,7 +80,7 @@ Options
 	- interval: number, update interval in milliseconds, at least 1000
 	*/
 	"autorefresh": {
-		"enabled": true,
+		"enabled": false,
 		"interval": 5000
 	},
 
@@ -112,7 +114,7 @@ Options
 	*/
 	"download": {
 		"enabled": true,
-		"type": "shell-zip",
+		"type": "php-tar",
 		"packageName": null,
 		"alwaysVisible": true
 	},
@@ -139,8 +141,8 @@ Options
 	- type: "php" (sloooow) or "shell-du" (sloow)
 	*/
 	"foldersize": {
-		"enabled": true,
-		"type": "shell-du"
+		"enabled": false,
+		"type": "php"
 	},
 
 	/*
@@ -187,7 +189,7 @@ Options
 	*/
 	"l10n": {
 		"enabled": true,
-		"lang": "en",
+		"lang": "pl",
 		"useBrowserLang": true
 	},
 
@@ -287,7 +289,7 @@ Options
 	- size: width and height in pixel
 	*/
 	"qrcode": {
-		"enabled": true,
+		"enabled": false,
 		"size": 150
 	},
 
@@ -345,7 +347,7 @@ Options
 		"mov": ["vid"],
 		"doc": ["x-pdf", "x-ps"],
 		"delay": 1,
-		"size": 96,
+		"size": 256,
 		"exif": true
 	},
 
@@ -395,14 +397,22 @@ Options
  		"maxfiles": 10,
  		"maxfilesize": 1000,
 		"allowedfiletypes": [],
-		"allowedfileextensions": [".jpg",".jpeg",".png",".gif",".pdf",".nzb",".torrent"] 
+		"allowedfileextensions": [] 
  	},
 
 	/* [EXPERIMENTAL]
  	Allow to rename files.
- 	No GUI yet.
  	*/
  	"rename": {
- 		"enabled": false
+ 		"enabled": true
+ 	},
+
+	/* [EXPERIMENTAL]
+ 	Allow to create new folders.
+ 	*/
+ 	"new_folder": {
+ 		"enabled": true
  	}
+
+
 }
