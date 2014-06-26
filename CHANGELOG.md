@@ -1,6 +1,12 @@
 # Changelog
 **h5ai** uses [semantic versioning](http://semver.org/).
 
+## to be done
+
+* whitelist IP over password protected file actions
+* password protected file actions (rename, upload, delete)
+* write .htaccess with h5ai script path to newly created folders
+
 
 ## develop branch
 
