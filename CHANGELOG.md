@@ -7,6 +7,13 @@
 * ...
 
 
+## v0.25.1 - *2014-06-25*
+
+* fixes broken paths for filenames containing '+' characters
+* fixes Google Universal Analytics
+* fixes file type check
+
+
 ## v0.25.0 - *2014-06-22*
 
 * adds security authentication
