@@ -4,7 +4,9 @@
 
 ## develop branch
 
-* ...
+* per directory configure files
+* MD5 Password encryption
+* Possibility to remove Icon, Size and Last Modified Date
 
 
 ## v0.25.1 - *2014-06-25*
