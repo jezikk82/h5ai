@@ -8,11 +8,10 @@ Options
 {
 	/* Enable Authentication 
 	*/	
-
     "security": {
 	"enabled": false,
 	"login": "user",
-	"password": "pass",
+	"password": "fe01ce2a7fbac8fafaed7c982a04e229", //MD5 of "demo"
 	"message": "Authentication Required !",
 	"ip": ["192.168.1.1"]
 	},
@@ -35,6 +34,7 @@ Options
 	General view options.
 
 	- binaryPrefix: set to true uses 1024B=1KiB when formatting file sizes (see http://en.wikipedia.org/wiki/Binary_prefix)
+	- loadsubconf: don't reload options.conf in folder
 	- hidden: don't list items matching these regular expressions
 	- hideFolders: hide all folders in the main view
 	- hideIf403: hide files and folders that are not readable by the server
@@ -57,6 +57,7 @@ Options
 	*/
 	"view": {
 		"binaryPrefix": true,
+		"loadsubconf": false,
 		"hidden": ["^\\.", "^_{{pkg.name}}"],
 		"hideFolders": false,
 		"hideIf403": true,
@@ -65,6 +66,9 @@ Options
 		"setParentFolderLabels": true,
 		"sizes": [24, 32, 48, 64, 96, 128, 192, 256, 384],
 		"smartBrowsing": true,
+		"suppressicon": false,
+		"suppresslastmodified": false,
+		"suppresssize": false,
 		"theme": "",
 		"unmanaged": ["index.html", "index.htm", "index.php"],
 		"unmanagedInNewWindow": false
@@ -166,17 +170,11 @@ Options
 	/*
 	Adds Google Universial Analytics asynchronous tracking code.
 
-	for example:
-	"calls": [
-		['create', 'UA-XXXX-Y', 'auto'],
-		['send', 'pageview']
-	]
-
 	see: https://developers.google.com/analytics/devguides/collection/analyticsjs/
 	*/
 	"google-analytics-ua": {
 		"enabled": false,
-		"calls": []
+		"id": "UA-000000-0"
 	},
 
 	/*

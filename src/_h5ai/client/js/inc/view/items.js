@@ -10,11 +10,11 @@ modulejs.define('view/items', ['_', '$', 'core/settings', 'core/resource', 'core
 
 		itemTemplate = '<li class="item">' +
 						'<a>' +
-							'<span class="icon square"><img/></span>' +
-							'<span class="icon rational"><img/></span>' +
+							( !settings.suppressicon ? '<span class="icon square"><img/></span>' : '' ) +
+							( !settings.suppressicon ? '<span class="icon rational"><img/></span>' : '' ) +
 							'<span class="label"/>' +
-							'<span class="date"/>' +
-							'<span class="size"/>' +
+							( !settings.suppresslastmodified ? '<span class="date"/>' : '' ) +
+							( !settings.suppresssize ? '<span class="size"/>' : '' ) +
 						'</a>' +
 					'</li>',
 		hintTemplate = '<span class="hint"/>',
@@ -22,10 +22,10 @@ modulejs.define('view/items', ['_', '$', 'core/settings', 'core/resource', 'core
 							'<div id="view">' +
 								'<ul id="items" class="clearfix">' +
 									'<li class="header">' +
-										'<a class="icon"/>' +
-										'<a class="label" href="#"><span class="l10n-name"/></a>' +
-										'<a class="date" href="#"><span class="l10n-lastModified"/></a>' +
-										'<a class="size" href="#"><span class="l10n-size"/></a>' +
+										( !settings.suppressicon ? '<a class="icon"/>' +
+										'<a class="label" href="#"><span class="l10n-name"/></a>' : '' ) +
+										( !settings.suppresslastmodified ? '<a class="date" href="#"><span class="l10n-lastModified"/></a>' : '' ) +
+										( !settings.suppresssize ? '<a class="size" href="#"><span class="l10n-size"/></a>' : '' ) +
 									'</li>' +
 								'</ul>' +
 								'<div class="empty l10n-empty"/>' +

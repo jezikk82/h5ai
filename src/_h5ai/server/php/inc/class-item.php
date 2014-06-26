@@ -142,9 +142,14 @@ class Item {
 		}
 
 		$files = $this->app->read_dir($this->path);
+		$options = $this->app->get_options();
 		foreach ($files as $file) {
-			$item = Item::get($this->app, $this->path . "/" . $file, $cache);
-			$items[$item->path] = $item;
+			if($options["view"]["loadsubconf"] && $file == "options.json"){
+				$this->app->set_options($this->path . "/" . $file);
+			}else{
+				$item = Item::get($this->app, $this->path . "/" . $file, $cache);
+				$items[$item->path] = $item;
+			}
 		}
 
 		$this->is_content_fetched = true;

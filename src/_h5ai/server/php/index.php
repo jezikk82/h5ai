@@ -6,8 +6,8 @@ ini_set("display_errors", 1);
 
 function normalize_path($path, $trailing_slash = false) {
 
-    $path = preg_replace("#\\+|/+#", "/", $path);
-    return preg_match("#^(\w:)?/$#", $path) ? $path : (rtrim($path, "/") . ($trailing_slash ? "/" : ""));
+	$path = preg_replace("#\\\\+|/+#", "/", $path);
+	return preg_match("#^(\w:)?/$#", $path) ? $path : (rtrim($path, "/") . ($trailing_slash ? "/" : ""));
 }
 
 
@@ -29,8 +29,8 @@ setup();
 $app = new App();
 $options = $app->get_options();
 if ($options["security"]["enabled"] && (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
-	|| ($_SERVER['PHP_AUTH_USER'] !== $options["security"]["login"] )
-	|| ($_SERVER['PHP_AUTH_PW'] !== $options["security"]["pass"])) ) {
+	|| ($_SERVER['PHP_AUTH_USER'] !== $options["security"]["login"])
+	|| (md5($_SERVER['PHP_AUTH_PW']) !== $options["security"]["pass"]) )) {
 
 	header('WWW-Authenticate: Basic realm='.$options["security"]["message"]);
 	header('HTTP/1.0 401 Unauthorized');
