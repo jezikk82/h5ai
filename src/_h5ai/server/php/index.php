@@ -22,6 +22,9 @@ normalized_require_once("class-image");
 
 setup();
 $app = new App();
+
+header("X-Powered-By: " . NAME . "/" . VERSION);
+
 $options = $app->get_options();
 if ($options["security"]["enabled"] &&
 	( !isset($_SERVER['PHP_AUTH_USER'])
