@@ -38,7 +38,7 @@ modulejs.define('ext/download', ['_', '$', 'core/settings', 'core/resource', 'co
 					action: 'download',
 					as: (settings.packageName || location.getItem().label) + '.' + extension,
 					type: type,
-					hrefs: (selectedItems.length) ? _.pluck(selectedItems, 'absHref').join('|:|') : location.getAbsHref()
+					hrefs: _.pluck(selectedItems, 'absHref').join('|:|')
 
 				};
 

@@ -33,7 +33,6 @@ normalized_require_once("class-image");
 
 setup();
 $app = new App();
-<<<<<<< HEAD
 $options = $app->get_options();
 if ($options["security"]["enabled"] &&
 	( !isset($_SERVER['PHP_AUTH_USER'])
