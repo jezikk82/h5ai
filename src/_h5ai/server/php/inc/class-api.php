@@ -8,7 +8,7 @@ class Api {
 
 	public function __construct($app) {
 
-		$this->actions = array("login", "logout", "get", "getThumbHref", "download");
+		$this->actions = array("login", "logout", "get", "getThumbHref", "download", "upload", "delete", "rename");
 		$this->app = $app;
 		$this->options = $app->get_options();
 	}
