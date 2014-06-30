@@ -1,6 +1,13 @@
 <?php
 
 
+function normalize_path($path, $trailing_slash = false) {
+
+	$path = preg_replace("#\\\\+|/+#", "/", $path);
+	return preg_match("#^(\w:)?/$#", $path) ? $path : (rtrim($path, "/") . ($trailing_slash ? "/" : ""));
+}
+
+
 function json_exit($obj = array()) {
 
 	$obj["code"] = 0;
@@ -106,8 +113,9 @@ function delete_path($path, $recursive = false) {
 	return false;
 }
 
-
-// debug tools
+/*********************************************************************
+  Debug Tools
+*********************************************************************/
 
 function err_log($message, $obj = null) {
 
