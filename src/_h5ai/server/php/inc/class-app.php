@@ -287,7 +287,7 @@ class App {
 
 			$html .= "<tr>";
 			if(!$this->options["view"]["suppressicon"]) $html .= "<td class='fb-i'><img src='" . APP_HREF . "client/images/fallback/" . $type . ".png' alt='" . $type . "'/></td>";
-			$html .= "<td class='fb-n'><a href='" . $item->url . "'>" . basename($item->path) . "</a></td>";
+			$html .= "<td class='fb-n'><a href='" . $item->url . "'>" . utf8_encode(basename($item->path)) . "</a></td>";
 			if(!$this->options["view"]["suppresslastmodified"]) $html .= "<td class='fb-d'>" . date("Y-m-d H:i", $item->date) . "</td>";
 			if(!$this->options["view"]["suppresssize"]) $html .= "<td class='fb-s'>" . ($item->size !== null ? intval($item->size / 1000) . " KB" : "" ) . "</td>";
 			$html .= "</tr>";
