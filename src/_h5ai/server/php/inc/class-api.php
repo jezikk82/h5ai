@@ -20,7 +20,7 @@ class Api {
 		$action = use_request_param("action");
 		json_fail(100, "unsupported request", !in_array($action, $this->actions));
 
-		$methodname = "on_$action";
+		$methodname = "on_${action}";
 		$this->$methodname();
 	}
 
@@ -105,7 +105,7 @@ class Api {
 			$response["all_items"] = $this->app->get_all_items();
 		}
 
-		if (count($_REQUEST)) {
+		if (AS_ADMIN && count($_REQUEST)) {
 			$response["unused"] = $_REQUEST;
 		}
 
