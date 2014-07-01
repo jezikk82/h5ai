@@ -13,7 +13,7 @@ modulejs.define('model/item', ['_', 'core/types', 'core/event', 'core/settings',
 		createLabel = function (sequence) {
 
 			sequence = sequence.replace(reEndsWithSlash, '');
-			try { sequence = unescape(sequence); } catch (e) {}
+			try { sequence = decodeURIComponent(sequence); } catch (e) {}
 			return sequence;
 		},
 
