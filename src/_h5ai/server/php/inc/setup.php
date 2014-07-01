@@ -10,12 +10,20 @@ function setup() {
 
 	define("NAME", "{{pkg.name}}");
 	define("VERSION", "{{pkg.version}}");
+	define("STAMP", "{{stamp}}");
 
 	define("BACKEND", "PHP");
 	define("API", true);
 	define("FILE_PREFIX", "_{{pkg.name}}");
 
 	define("IP", getClientIP());
+
+	// ADMIN
+	session_start();
+	define("AS_ADMIN_SESSION_KEY", "__H5AI_AS_ADMIN__");
+	define("AS_ADMIN", isset($_SESSION[AS_ADMIN_SESSION_KEY]) && $_SESSION[AS_ADMIN_SESSION_KEY] === true);
+	define("HAS_CUSTOM_PASSHASH", PASSHASH !== "da39a3ee5e6b4b0d3255bfef95601890afd80709");
+
 
 	// PHP
 	define("MIN_PHP_VERSION", "5.3.0");
@@ -39,6 +47,7 @@ function setup() {
 	}
 	define("SERVER_NAME", $server_name);
 	define("SERVER_VERSION", $server_version);
+	define("HAS_SERVER", in_array($server_name, array("apache", "lighttd", "nginx", "cherokee")));
 	define("HAS_WIN_OS", strtolower(substr(PHP_OS, 0, 3)) === "win");
 
 

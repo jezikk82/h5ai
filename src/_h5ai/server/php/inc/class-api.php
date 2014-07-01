@@ -8,7 +8,8 @@ class Api {
 
 	public function __construct($app) {
 
-		$this->actions = array("get", "getThumbHref", "download", "upload", "delete", "rename", "new_folder");
+
+		$this->actions = array("login", "logout", "get", "getThumbHref", "download", "upload", "delete", "rename", "new_folder");
 		$this->app = $app;
 		$this->options = $app->get_options();
 	}
@@ -21,6 +22,21 @@ class Api {
 
 		$methodname = "on_$action";
 		$this->$methodname();
+	}
+
+
+	private function on_login() {
+
+		$pass = use_request_param("pass");
+		$_SESSION[AS_ADMIN_SESSION_KEY] = sha1($pass) === PASSHASH;
+		json_exit(array("as_admin" => $_SESSION[AS_ADMIN_SESSION_KEY]));
+	}
+
+
+	private function on_logout() {
+
+		$_SESSION[AS_ADMIN_SESSION_KEY] = false;
+		json_exit(array("as_admin" => $_SESSION[AS_ADMIN_SESSION_KEY]));
 	}
 
 
@@ -38,6 +54,7 @@ class Api {
 
 			use_request_param("options");
 			$response["options"] = $this->app->get_options();
+			unset($response["options"]["security"]);
 		}
 
 		if (has_request_param("types")) {
@@ -154,7 +171,7 @@ class Api {
 
 		json_fail(5, "upload dir no h5ai folder or ignored", !$this->app->is_managed_url($href) || $this->app->is_hidden($upload_dir));
 
-		$dest = $upload_dir . "/" . utf8_encode($userfile["name"]);
+		$dest = $upload_dir . "/" . urldecode($userfile["name"]);
 
 		json_fail(6, "already exists", file_exists($dest));
 		json_fail(7, "can't move uploaded file", !move_uploaded_file($userfile["tmp_name"], $dest));

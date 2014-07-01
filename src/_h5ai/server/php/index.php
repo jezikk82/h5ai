@@ -1,18 +1,18 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
+/*********************************************************************
+  SHA1 hash of the info page password, the preset password is the
+  empty string. You might change it to keep this information private.
+  Online hash generator: http://www.sha1.cz/
+*********************************************************************/
+define("PASSHASH", "da39a3ee5e6b4b0d3255bfef95601890afd80709");
 
-function normalize_path($path, $trailing_slash = false) {
 
-	$path = preg_replace("#\\\\+|/+#", "/", $path);
-	return preg_match("#^(\w:)?/$#", $path) ? $path : (rtrim($path, "/") . ($trailing_slash ? "/" : ""));
-}
 
 
 function normalized_require_once($lib) {
 
-	require_once(normalize_path(dirname(__FILE__) . "/inc/${lib}.php", false));
+	require_once(preg_replace("#\\\\+|/+#", "/", dirname(__FILE__) . "/inc/${lib}.php"));
 }
 
 normalized_require_once("util");
@@ -28,9 +28,14 @@ setup();
 $app = new App();
 
 $options = $app->get_options();
-if ($options["security"]["enabled"] && (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
+if ($options["security"]["enabled"] &&
+	( !isset($_SERVER['PHP_AUTH_USER'])
+	|| !isset($_SERVER['PHP_AUTH_PW'])
 	|| ($_SERVER['PHP_AUTH_USER'] !== $options["security"]["login"])
-	|| (md5($_SERVER['PHP_AUTH_PW']) !== $options["security"]["pass"]) )) {
+	|| (md5($_SERVER['PHP_AUTH_PW']) !== md5($options["security"]["password"]))
+	|| !(empty($options["security"]["allowedips"]) || in_array($_SERVER['REMOTE_ADDR'], $options["security"]["allowedips"]))
+        )
+) {
 
 	header('WWW-Authenticate: Basic realm='.$options["security"]["message"]);
 	header('HTTP/1.0 401 Unauthorized');

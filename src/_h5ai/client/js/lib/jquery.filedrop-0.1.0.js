@@ -354,7 +354,7 @@
 	  xhr.open("POST", opts.url, true);
 	}
 
-        xhr.setRequestHeader('content-type', 'multipart/form-data; boundary=' + boundary);
+        xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + boundary);
 
         // Add headers
         $.each(opts.headers, function(k, v) {

@@ -19,6 +19,7 @@
  * write .htaccess with h5ai script path to newly created folders
 
 
+
 ## v0.25.1 - *2014-06-25*
 
 * fixes broken paths for filenames containing '+' characters

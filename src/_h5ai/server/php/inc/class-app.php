@@ -35,13 +35,21 @@ class App {
 
 		$consts = get_defined_constants(true);
 		$setup = $consts["user"];
-		$setup["PHP_VERSION"] = PHP_VERSION;
-		//$setup['CRUD'] = in_array(IP, $this->options["security"]["ip"]);
 
-		unset($setup["APP_PATH"]);
-		unset($setup["ROOT_PATH"]);
-		unset($setup["CURRENT_PATH"]);
-		unset($setup["CACHE_PATH"]);
+		$setup["PHP_VERSION"] = PHP_VERSION;
+		unset($setup["AS_ADMIN_SESSION_KEY"]);
+		unset($setup["PASSHASH"]);
+
+		if (!AS_ADMIN) {
+			unset($setup["APP_PATH"]);
+			unset($setup["CACHE_PATH"]);
+			unset($setup["CURRENT_PATH"]);
+			unset($setup["PHP_VERSION"]);
+			unset($setup["ROOT_PATH"]);
+			unset($setup["SERVER_NAME"]);
+			unset($setup["SERVER_VERSION"]);
+		}
+
 		return $setup;
 	}
 
@@ -285,7 +293,7 @@ class App {
 
 			$html .= "<tr>";
 			if(!$this->options["view"]["suppressicon"]) $html .= "<td class='fb-i'><img src='" . APP_HREF . "client/images/fallback/" . $type . ".png' alt='" . $type . "'/></td>";
-			$html .= "<td class='fb-n'><a href='" . $item->url . "'>" . basename($item->path) . "</a></td>";
+			$html .= "<td class='fb-n'><a href='" . $item->url . "'>" . utf8_encode(basename($item->path)) . "</a></td>";
 			if(!$this->options["view"]["suppresslastmodified"]) $html .= "<td class='fb-d'>" . date("Y-m-d H:i", $item->date) . "</td>";
 			if(!$this->options["view"]["suppresssize"]) $html .= "<td class='fb-s'>" . ($item->size !== null ? intval($item->size / 1000) . " KB" : "" ) . "</td>";
 			$html .= "</tr>";
