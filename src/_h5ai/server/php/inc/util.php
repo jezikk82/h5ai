@@ -10,7 +10,11 @@ function normalize_path($path, $trailing_slash = false) {
 
 function json_exit($obj = array()) {
 
-	$obj["code"] = 0;
+	if (!isset($obj["code"])) {
+		$obj["code"] = 0;
+	}
+
+	header("Content-type: application/json;charset=utf-8");
 	echo json_encode($obj);
 	exit;
 }
@@ -19,8 +23,7 @@ function json_exit($obj = array()) {
 function json_fail($code, $msg = "", $cond = true) {
 
 	if ($cond) {
-		echo json_encode(array("code" => $code, "msg" => $msg));
-		exit;
+		json_exit(array("code" => $code, "msg" => $msg));
 	}
 }
 
