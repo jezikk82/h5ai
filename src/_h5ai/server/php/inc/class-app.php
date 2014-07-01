@@ -18,19 +18,22 @@ class App {
 
 	public function get_options() {
 
+		if(!defined('CRUD_pass')) {
+			define("CRUD_pass", md5($this->options["security"]["CRUD_pass"]));
+		}
+		
 		$CRUD = in_array(IP, $this->options["security"]["allowedips"]);
-		$CRUD_pass = md5($this->options["security"]["CRUD_pass"]);
 		
 		unset($response["options"]["security"]);		
 		$this->options['security']['CRUD'] = $CRUD;
-		$this->options["security"]["CRUD_pass"] = $CRUD_pass;
-		//unset($response["options"]["security"]['login'];
-		//unset($response["options"]["security"]['password'];
+		$this->options["security"]["CRUD_pass"] = CRUD_pass;
+		//$response["options"]["security"]['login'] = '';
+		//$response["options"]["security"]['password'] = '';
 		//unset($response["options"]["security"]['allowedips'];
 		
 		return $this->options;
 	}
-
+	
 	public function set_options($filename){
 		$this->options = load_commented_json($filename) + $this->options;
 	}
