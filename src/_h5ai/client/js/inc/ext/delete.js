@@ -41,19 +41,19 @@ modulejs.define('ext/delete', ['_', '$', 'core/settings', 'core/event', 'core/re
 				//console.log(allsettings['security']['CRUD']);
 				//console.log('l10n-delete_confirm');
 				if(allsettings['security']['CRUD']) {
-					if(confirm('Czy na pewno chcesz usun¹c te pliki?'))
+					if(confirm('Do you really want to delete these files/directories ?'))	//Czy na pewno chcesz usunÄ…c te pliki?
 						server.request({action: 'delete', hrefs: hrefsStr}, handleResponse);
 				}
 				else 
 				{	
 					var CRUD_pass = allsettings['security']['CRUD_pass'];
-					var pass = prompt('Podaj has³o:', pass);
+					var pass = prompt('Enter CRUD password:', pass);	// Podaj hasÅ‚o:
 					if (pass && md5(pass) == CRUD_pass) {
-						if(confirm('Czy na pewno chcesz usun¹c te pliki?')) 
+						if(confirm('Do you really want to delete these files/directories ?')) 	//Czy na pewno chcesz usunÄ…c te pliki?
 							server.request({action: 'delete', hrefs: hrefsStr}, handleResponse);
 					}
 					else 
-						alert ('Bledne has³o');
+						alert ('Wrong password');	// Bledne hasÅ‚o
 					//console.log(CRUD_pass, md5(pass));	
 				}
 				$img.attr('src', resource.image('delete'));

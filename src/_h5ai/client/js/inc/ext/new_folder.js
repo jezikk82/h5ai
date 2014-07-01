@@ -47,18 +47,18 @@
 				}	
 */
 				console.log(allsettings['security']['CRUD']);
-				var newname = prompt('Nowy folder', ''); 
+				var newname = prompt('New directory', ''); 	// Nowy folder
 				if(allsettings['security']['CRUD'] && newname && newname != '') {
 					server.request({action: 'new_folder', href: location.getAbsHref(), name: newname}, handleResponse);
 				}
 				else if(!allsettings['security']['CRUD'] && newname && newname != '') {
 					var CRUD_pass = allsettings['security']['CRUD_pass'];
-					var pass = prompt('Podaj has³o:', pass);
+					var pass = prompt('Enter CRUD password:', pass);	// Podaj hasÅ‚o:
 					if (pass && md5(pass) == CRUD_pass) {
 						server.request({action: 'new_folder', href: location.getAbsHref(), name: newname}, handleResponse);
 					}
 					else 
-						alert('B³êdne has³o');
+						alert('Wrong password');	//BÅ‚Ä™dne hasÅ‚o
 				}
 				else {
 					$img.attr('src', resource.image('new_folder'));

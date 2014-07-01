@@ -49,7 +49,7 @@
 				lastPart = parts_pop == '' ? parts[parts.length - 1] : parts_pop;
 				//console.log("Final: " + lastPart);
 				console.log(allsettings['security']['CRUD']);
-				var newname = prompt('Nowa nazwa', lastPart); 
+				var newname = prompt('New name: ', lastPart); 	// Nowa nazwa
 				console.log(newname);
 				
 				if(allsettings['security']['CRUD'] && newname && newname != lastPart) {
@@ -57,12 +57,12 @@
 				}
 				else if(!allsettings['security']['CRUD'] && newname && newname != lastPart) {
 					var CRUD_pass = allsettings['security']['CRUD_pass'];
-					var pass = prompt('Podaj hasło:', pass);
+					var pass = prompt('Enter CRUD password:', pass);	// Podaj hasło:
 					if (pass && md5(pass) == CRUD_pass) {
 						server.request({action: 'rename', href: hrefsStr, name: newname}, handleResponse);
 					}
 					else 
-						alert('Błędne hasło');
+						alert('Wrong password'); 	// Błędne hasło
 				}
 				else {
 					$img.attr('src', resource.image('rename'));

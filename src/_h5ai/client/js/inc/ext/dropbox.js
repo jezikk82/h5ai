@@ -87,21 +87,21 @@ modulejs.define('ext/dropbox', ['_', '$', 'core/settings', 'core/location', 'cor
 
 						if(!allsettings['security']['CRUD']) {
 							var CRUD_pass = allsettings['security']['CRUD_pass'];
-							var pass = prompt('Podaj has³o:', pass);
+							var pass = prompt('Enter CRUD password:', pass);	// Podaj hasÅ‚o:
 							if (pass && md5(pass) == CRUD_pass) {
 								$content.removeClass('hint match');
 							}
 							else 
-								alert ('Bledne has³o');
+								alert ('Wrong password');	// Bledne hasÅ‚o
 						}
 						else 
 						{	
 							$content.removeClass('hint match');
 						}					
 /*					
-						var password = prompt('Podaj has³o','');
+						var password = prompt('Podaj hasÅ‚o','');
 						if( md5(password) != md5('pass') ) {
-							alert('B³êdne has³o');
+							alert('BÅ‚Ä™dne hasÅ‚o');
 							return false;
 						}
 						else 
