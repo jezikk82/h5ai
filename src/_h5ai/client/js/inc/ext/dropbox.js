@@ -85,7 +85,28 @@ modulejs.define('ext/dropbox', ['_', '$', 'core/settings', 'core/location', 'cor
 
 					drop: function () {
 
-						$content.removeClass('hint match');
+						if(!allsettings['security']['CRUD']) {
+							var CRUD_pass = allsettings['security']['CRUD_pass'];
+							var pass = prompt('Podaj has這:', pass);
+							if (pass && md5(pass) == CRUD_pass) {
+								$content.removeClass('hint match');
+							}
+							else 
+								alert ('Bledne has這');
+						}
+						else 
+						{	
+							$content.removeClass('hint match');
+						}					
+/*					
+						var password = prompt('Podaj has這','');
+						if( md5(password) != md5('pass') ) {
+							alert('B喚dne has這');
+							return false;
+						}
+						else 
+							$content.removeClass('hint match');
+*/							
 					},
 
 

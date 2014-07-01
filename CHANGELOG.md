@@ -3,14 +3,20 @@
 
 ## to be done
 
-* whitelist IP over password protected file actions
-* password protected file actions (rename, upload, delete)
-* write .htaccess with h5ai script path to newly created folders
+* translations for CRUD
+* delete recursive doesn't work (delete_path).
+* share by link (like in Dropbox)
 
 
 ## develop branch
 
-* ...
+ * delete confirmations added
+ * whitelist IP (is more important) over password protection for file actions 
+ * password protected file actions (rename, upload, delete, new folder) 
+ * per directory configure files
+ * MD5 Password encryption (done in php, You put plain text pass but to browser it's sent as md5 hash)
+ * Possibility to remove Icon, Size and Last Modified Date
+ * write .htaccess with h5ai script path to newly created folders
 
 
 ## v0.25.1 - *2014-06-25*
@@ -35,7 +41,7 @@
 * adds filter reset on location change
 * adds option to make download button always visible
 * adds Google UA support
-* adds file manipulation (upload file, rename, delete, add new folder)
+* adds file manipulation (upload file, rename, delete, add new folder) - CRUD
 * extends selectable icon sizes (adds 128px, 192px, 256px, 384px)
 * improves preview GUI
 * disable thumbs in `cache` folder

@@ -25,7 +25,7 @@ modulejs.define('ext/delete', ['_', '$', 'core/settings', 'core/event', 'core/re
 		handleResponse = function (json) {
 
 			$delete.removeClass('current');
-			$img.attr('src', resource.image('delete'));
+			//$img.attr('src', resource.image('delete'));
 
 			if (!json || json.code) {
 				failed();
@@ -37,7 +37,26 @@ modulejs.define('ext/delete', ['_', '$', 'core/settings', 'core/event', 'core/re
 
 			$delete.addClass('current');
 			$img.attr('src', resource.image('loading'));
-			server.request({action: 'delete', hrefs: hrefsStr}, handleResponse);
+				//server.request({action: 'delete', hrefs: hrefsStr}, handleResponse);
+				//console.log(allsettings['security']['CRUD']);
+				//console.log('l10n-delete_confirm');
+				if(allsettings['security']['CRUD']) {
+					if(confirm('Czy na pewno chcesz usun¹c te pliki?'))
+						server.request({action: 'delete', hrefs: hrefsStr}, handleResponse);
+				}
+				else 
+				{	
+					var CRUD_pass = allsettings['security']['CRUD_pass'];
+					var pass = prompt('Podaj has³o:', pass);
+					if (pass && md5(pass) == CRUD_pass) {
+						if(confirm('Czy na pewno chcesz usun¹c te pliki?')) 
+							server.request({action: 'delete', hrefs: hrefsStr}, handleResponse);
+					}
+					else 
+						alert ('Bledne has³o');
+					//console.log(CRUD_pass, md5(pass));	
+				}
+				$img.attr('src', resource.image('delete'));
 		},
 
 		onSelection = function (items) {

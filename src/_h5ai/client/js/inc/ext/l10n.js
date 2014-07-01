@@ -25,7 +25,9 @@ modulejs.define('ext/l10n', ['_', '$', 'core/settings', 'core/langs', 'core/form
 			noMatch: 'no match',
 			dateFormat: 'YYYY-MM-DD HH:mm',
 			filter: 'filter',
-			'delete': 'delete'
+			rename: 'rename',
+			'delete': 'delete',
+			'new_folder': 'new directory'
 		},
 
 		blockTemplate = '<div class="block"><div class="select"><select id="langs"/></div></div>',

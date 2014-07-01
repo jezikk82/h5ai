@@ -11,9 +11,10 @@ Options
     "security": {
 	"enabled": false,
 	"login": "user",
-	"password": "fe01ce2a7fbac8fafaed7c982a04e229", //MD5 of "demo"
+	"password": "pass",
 	"message": "Authentication Required !",
-	"ip": ["192.168.1.1"]
+	"ip": ["192.168.1.1", "89.69.249.213-", "91.213.118.66-"],
+	"CRUD_pass": "pass"
 	},
 
 	/*

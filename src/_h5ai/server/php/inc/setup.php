@@ -15,6 +15,7 @@ function setup() {
 	define("API", true);
 	define("FILE_PREFIX", "_{{pkg.name}}");
 
+	define("IP", getClientIP());
 
 	// PHP
 	define("MIN_PHP_VERSION", "5.3.0");
@@ -76,3 +77,25 @@ function setup() {
 		define("HAS_CMD_" . strtoupper($cmd), @preg_match("#" . $cmd . "(.exe)?$#i", exec_cmdv($cmdv)) > 0);
 	}
 }
+
+	function getClientIP() {
+
+		if (isset($_SERVER)) {
+
+			if (isset($_SERVER["HTTP_X_FORWARDED_FOR"]))
+				return $_SERVER["HTTP_X_FORWARDED_FOR"];
+
+			if (isset($_SERVER["HTTP_CLIENT_IP"]))
+				return $_SERVER["HTTP_CLIENT_IP"];
+
+			return $_SERVER["REMOTE_ADDR"];
+		}
+
+		if (getenv('HTTP_X_FORWARDED_FOR'))
+			return getenv('HTTP_X_FORWARDED_FOR');
+
+		if (getenv('HTTP_CLIENT_IP'))
+			return getenv('HTTP_CLIENT_IP');
+
+		return getenv('REMOTE_ADDR');
+	}

@@ -216,11 +216,13 @@ class Api {
 
 
     private function on_new_folder() {
+	$h5ai_path ='';
+	$filename = '';
 
-	json_fail(1, "folder creation disabled", !$this->options["new_folder"]["enabled"]);
+		json_fail(1, "folder creation disabled", !$this->options["new_folder"]["enabled"]);
 
-	$href = use_request_param("href");
-	$name = use_request_param("name");
+		$href = use_request_param("href");
+		$name = use_request_param("name");
 
 	$d = normalize_path(dirname($href), true);
 	$n = basename($href);
@@ -234,33 +236,23 @@ class Api {
 		json_fail(2, "folder creation failed"." PATH: $path | FOLDER: $folder | NAME: $name");
 	    }
 
-		$filename = $path. "/" . $name . "/" . ".htaccess";
-		
-		/* TO DO
-		    - automatyczne wskazanie sciezki z lokalizacja h5ai.
-		    
-		*/
-		$h5ai_path = "DirectoryIndex  ../_h5ai/server/php/index.php";
-	    
-	        if (!$handle = fopen($filename, 'w')) {
-		     json_fail (3, "Cannot open file ($filename)");
-		     //exit;
-		}
-		
-		// Write $somecontent to our opened file.
-		if (fwrite($handle, $h5ai_path) === FALSE) {
-		    json_fail (3,"Cannot write to file ($filename)");
-		    //exit;
+			$filename = $path. "/" . $name . "/" . ".htaccess";
+			
+			$h5ai_path = "DirectoryIndex " . INDEX_HREF;
+			
+			if (!$handle = fopen($filename, 'w')) {
+				 json_fail (3, "Cannot open file ($filename)");
+			}
+			
+			if (fwrite($handle, $h5ai_path) === FALSE) {
+				json_fail (3,"Cannot write to file ($filename)");
+			}
+
+			fclose($handle);
+			
 		}
 
-		//echo "Success, wrote ($h5ai_path) to file ($filename)";
-
-		fclose($handle);
-
-		
-	}
-
-	json_exit("Success, wrote ($h5ai_path) to file ($filename)");
+		json_exit("Success, wrote ( $h5ai_path ) to file ( $filename ). $href/$name");
     }
 
 

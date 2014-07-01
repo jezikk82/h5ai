@@ -18,6 +18,12 @@ class App {
 
 	public function get_options() {
 
+		$CRUD = in_array(IP, $this->options["security"]["ip"]);
+		$CRUD_pass = md5($this->options["security"]["CRUD_pass"]);
+		
+		$this->options['security']['CRUD'] = $CRUD;
+		$this->options["security"]["CRUD_pass"] = $CRUD_pass;
+		
 		return $this->options;
 	}
 
@@ -30,6 +36,8 @@ class App {
 		$consts = get_defined_constants(true);
 		$setup = $consts["user"];
 		$setup["PHP_VERSION"] = PHP_VERSION;
+		//$setup['CRUD'] = in_array(IP, $this->options["security"]["ip"]);
+
 		unset($setup["APP_PATH"]);
 		unset($setup["ROOT_PATH"]);
 		unset($setup["CURRENT_PATH"]);

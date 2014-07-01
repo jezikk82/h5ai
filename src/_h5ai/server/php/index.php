@@ -1,6 +1,5 @@
 <?php
 
-
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
@@ -27,6 +26,9 @@ normalized_require_once("class-image");
 
 setup();
 $app = new App();
+
+header("X-Powered-By: " . NAME . "/" . VERSION);
+
 $options = $app->get_options();
 if ($options["security"]["enabled"] && (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])
 	|| ($_SERVER['PHP_AUTH_USER'] !== $options["security"]["login"])
@@ -34,7 +36,7 @@ if ($options["security"]["enabled"] && (!isset($_SERVER['PHP_AUTH_USER']) || !is
 
 	header('WWW-Authenticate: Basic realm='.$options["security"]["message"]);
 	header('HTTP/1.0 401 Unauthorized');
-	echo 'Acces non autorisé';
+	echo 'Access forbidden';
 	exit;
 }
 else if (has_request_param("action")) {
