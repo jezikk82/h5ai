@@ -126,7 +126,6 @@ modulejs.define('model/item', ['_', 'core/types', 'core/event', 'core/settings',
 		this.absHref = absHref;
 		this.type = types.getType(absHref);
 		this.label = createLabel(absHref === '/' ? location.getDomain() : split.name);
-		console.log(this.label + ' dom ' + ' name ' + split.name);
 		this.time = null;
 		this.size = null;
 		this.parent = null;
