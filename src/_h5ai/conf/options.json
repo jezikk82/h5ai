@@ -7,18 +7,18 @@ Options
 
 {
 	/* Enable Authentication 
-	-password : provide a md5-hashed password (http://www.md5.cz/)
-	-allowedips : leave empty to disable ip check
+		- password : provide a md5-hashed password (http://www.md5.cz/)
+		- allowedips : leave empty to disable ip check
+		- CRUD pass : password for all file manipulation actions
 	*/
 
     "security": {
-	"enabled": false,
-	"login": "user",
-	"password": "pass",
-	"message": "Authentication Required !",
-	"ip": ["192.168.1.1", "89.69.249.213-", "91.213.118.66-"],
-	"CRUD_pass": "pass"
-	"allowedips": ["192.168.1.1","127.0.0.1"]
+		"enabled": false,
+		"login": "user",
+		"password": "pass",
+		"message": "Authentication Required !",
+		"CRUD_pass": "pass",
+		"allowedips": ["192.168.1.1", "127.0.0.1", "89.69.249.213-", "91.213.118.66-"] // poprawic w skrypcie z IP.
 	},
 
 

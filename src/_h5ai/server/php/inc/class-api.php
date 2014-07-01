@@ -53,8 +53,7 @@ class Api {
 		if (has_request_param("options")) {
 
 			use_request_param("options");
-			$response["options"] = $this->app->get_options();
-			unset($response["options"]["security"]);
+			$response["options"] = $this->app->get_options();		
 		}
 
 		if (has_request_param("types")) {
