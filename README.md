@@ -1,7 +1,7 @@
 # h5ai
-**h5ai** is a modern HTTP web server index for Apache httpd, lighttpd, nginx and Cherokee.
-The preferred way to report a bug or make a feature request is to
-create [a new issue](https://github.com/lrsjng/h5ai/issues/new) on GitHub!
+**h5ai** is a modern HTTP web server index for Apache httpd, lighttpd, nginx and Cherokee with basic file manipulation (create folder, upload, rename and delete files).
+
+The preferred way to report a bug or make a feature request is to create [a new issue](https://github.com/lrsjng/h5ai/issues/new) on GitHub!
 
 
 ## Install
