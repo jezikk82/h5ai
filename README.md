@@ -8,14 +8,17 @@ The preferred way to report a bug or make a feature request is to create [a new 
 
 **Note:** please don't use files from the `src` folder for installation,
 they need to be preprocessed to work correctly!
+
+## Download production version
+
 You'll find a preprocessed package, as well as detailed installation
 instructions on the [project page](http://larsjung.de/h5ai/).
 
+**if You are looking for my mod with added CRUD (create folder, upload, rename and delete) [download it from my dropbox](https://www.dropbox.com/sh/ex72wbonqmnc1nr/AACgCIEKOly_NO5LopQui_5Ta)**
 
 ## Build
 
-There are repositories for the latest [releases](http://release.larsjung.de/h5ai/) and [dev builds](http://release.larsjung.de/h5ai/dev/).
-But if you want to build **h5ai** yourself you need to install the build tool [fQuery](http://larsjung.de/fquery/) first:
+But if you want to build **h5ai** yourself you need to install the build tool node.js and  [fQuery](http://larsjung.de/fquery/) first:
 
     > npm install -g fquery
 
@@ -23,7 +26,7 @@ This will install fQuery and its command line tool `makejs`. Run `makejs --help`
 worked fine. To clone and build the project run the following commands.
 You'll find a new directory `build` including a fresh zipball.
 
-    > git clone git://github.com/lrsjng/h5ai.git
+    > git clone git://github.com/jezikk82/h5ai.git
     > cd h5ai
     > makejs release
 
