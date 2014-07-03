@@ -60,7 +60,7 @@ Options
 	"view": {
 		"binaryPrefix": true,
 		"loadsubconf": false,
-		"hidden": ["^\\.", "^_{{pkg.name}}", "/monitoring"],
+		"hidden": ["^\\.", "^_{{pkg.name}}"],
 		"hideFolders": false,
 		"hideIf403": true,
 		"hideParentFolder": false,
