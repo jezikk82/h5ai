@@ -46,7 +46,7 @@ function setup() {
 	}
 	define("SERVER_NAME", $server_name);
 	define("SERVER_VERSION", $server_version);
-	define("HAS_SERVER", in_array($server_name, array("apache", "lighttd", "nginx", "cherokee")));
+	define("HAS_SERVER", in_array($server_name, array("apache", "lighttpd", "nginx", "cherokee")));
 	define("HAS_WIN_OS", strtolower(substr(PHP_OS, 0, 3)) === "win");
 
 
@@ -72,9 +72,13 @@ function setup() {
 	define("CURRENT_HREF", $current_href);
 	define("CURRENT_PATH", $current_path);
 
-	define("INDEX_HREF", normalize_path(APP_HREF . "server/php/index.php", false));
+	$index_href = null;
+	if (@is_readable(normalize_path(APP_PATH . "/server/php/index.php", false))) {
+		$index_href = normalize_path(APP_HREF . "/server/php/index.php", false);
+	}
+	define("INDEX_HREF", $index_href);
 
-	define("CACHE_HREF", normalize_path(APP_HREF . "cache", true));
+	define("CACHE_HREF", normalize_path(APP_HREF . "/cache", true));
 	define("CACHE_PATH", normalize_path(APP_PATH . "/cache", false));
 	define("HAS_WRITABLE_CACHE", @is_writable(CACHE_PATH));
 
