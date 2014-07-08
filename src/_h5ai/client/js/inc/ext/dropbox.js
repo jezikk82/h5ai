@@ -93,6 +93,7 @@ modulejs.define('ext/dropbox', ['_', '$', 'core/settings', 'core/location', 'cor
 							}
 							else 
 								alert ('Wrong password');	// Bledne hasło
+								return false;
 						}
 						else 
 						{	
