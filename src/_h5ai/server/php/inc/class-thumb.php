@@ -52,7 +52,7 @@ class Thumb {
 			return null;
 		}
 
-		$name = "thumb-" . sha1("$source_path-$width-$height-$mode") . ".jpg";
+		$name = "thumb-" . sha1("$source_path") . ".jpg";
 		$thumb_path = $this->thumbs_path . "/" . $name;
 		$thumb_url = $this->thumbs_href . "/" . $name;
 
@@ -87,7 +87,7 @@ class Thumb {
 			return null;
 		}
 
-		$capture_path = $this->thumbs_path . "/capture-" . sha1($source_path) . ".jpg";
+		$capture_path = $this->thumbs_path . "/thumb-" . sha1($source_path) . ".jpg";
 
 		if (!file_exists($capture_path) || filemtime($source_path) >= filemtime($capture_path)) {
 
