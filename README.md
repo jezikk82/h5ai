@@ -3,8 +3,6 @@
 
 The preferred way to report a bug or make a feature request is to create [a new issue](https://github.com/lrsjng/h5ai/issues/new) on GitHub!
 
-If the bug or request is connected to CRUD create it in my repository using [a new issue](https://github.com/jezikk82/h5ai/issues/new).
-
 
 ## Download production version
 
@@ -29,11 +27,11 @@ Examples of the second step for all tested web servers:
 
 * Apache httpd 2.2/2.4: in `httpd.conf` or in any directory's `.htaccess` file set for example:
 
-    > DirectoryIndex  index.html  index.php  /_h5ai/server/php/index.php
+    ```DirectoryIndex  index.html  index.php  /_h5ai/server/php/index.php```
 
 * nginx 1.2: in `nginx.conf` set for example:
 
-    > index  index.html  index.php  /_h5ai/server/php/index.php;
+    ```index  index.html  index.php  /_h5ai/server/php/index.php;```
 
 ### Hints
 
@@ -54,19 +52,19 @@ The main configuration file is `_h5ai/conf/options.json`. You might want to adju
 But if you want to build **h5ai** yourself you need to install the build tool [node.js](http://nodejs.org/) and  [fQuery](http://larsjung.de/fquery/) **Important: fQuery won't work on Windows.**
 
 * First:
-
-    > npm install -g fquery
-
+```
+    npm install -g fquery
+```
 This will install fQuery and its command line tool `makejs`. Run `makejs --help` to see if everything
 worked fine. 
 
 * To clone and build the project run the following commands.
 You'll find a new directory `build` including a fresh zipball.
-
-    > git clone git://github.com/jezikk82/h5ai.git
-    > cd h5ai
-    > makejs release
-
+```
+    git clone git://github.com/jezikk82/h5ai.git
+    cd h5ai
+    makejs release
+```
 
 ## License
 
