@@ -13,6 +13,11 @@ class App {
 	public function __construct() {
 
 		$this->options = load_commented_json(APP_PATH . "/conf/options.json");
+
+		if(file_exists(CURRENT_PATH . "/options.json")) {
+
+			$this->options = load_commented_json(CURRENT_PATH . "/options.json") + $this->options;
+		}
 	}
 
 
@@ -22,6 +27,7 @@ class App {
 	}
 
 	public function set_options($filename){
+
 		$this->options = load_commented_json($filename) + $this->options;
 	}
 
