@@ -263,7 +263,7 @@ Options
 			"txt-json": "js",
 			"txt-makefile": "xml",
 			"txt-md": "markdown",
-			// "txt-php": "php",
+			"txt-php": "php",
 			"txt-py": "python",
 			"txt-readme": "fixed",
 			"txt-rb": "ruby",
