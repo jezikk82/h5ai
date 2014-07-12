@@ -2,8 +2,8 @@
 
 class Thumb {
 
-	private static $FFMPEG_CMDV = array("ffmpeg", "-ss", "0:01:00", "-i", "[SRC]", "-an", "-vframes", "1", "[DEST]");
-	private static $AVCONV_CMDV = array("avconv", "-ss", "0:01:00", "-i", "[SRC]", "-an", "-vframes", "1", "[DEST]");
+	private static $FFMPEG_CMDV = array("ffmpeg", "-ss", "1", "-i", "[SRC]", "-an", "-vframes", "1", "[DEST]");
+	private static $AVCONV_CMDV = array("avconv", "-ss", "1", "-i", "[SRC]", "-an", "-vframes", "1", "[DEST]");
 	private static $CONVERT_CMDV = array("convert", "-strip", "[SRC][0]", "[DEST]");
 	private static $THUMB_CACHE = "thumbs";
 
@@ -52,7 +52,7 @@ class Thumb {
 			return null;
 		}
 
-		$name = "thumb-" . sha1("$source_path") . ".jpg";
+		$name = "thumb-" . sha1("$source_path.$mode") . ".jpg";
 		$thumb_path = $this->thumbs_path . "/" . $name;
 		$thumb_url = $this->thumbs_href . "/" . $name;
 
@@ -87,7 +87,7 @@ class Thumb {
 			return null;
 		}
 
-		$capture_path = $this->thumbs_path . "/thumb-" . sha1($source_path) . ".jpg";
+		$capture_path = $this->thumbs_path . "/capture-" . sha1($source_path) . ".jpg";
 
 		if (!file_exists($capture_path) || filemtime($source_path) >= filemtime($capture_path)) {
 

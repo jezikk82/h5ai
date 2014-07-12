@@ -156,24 +156,26 @@ class Api {
 
 	private function on_upload() {
 
+		json_fail(1, "upload disabled", !$this->options["dropbox"]["enabled"]);
+
 		$href = use_request_param("href");
 
-		json_fail(1, "wrong HTTP method", strtolower($_SERVER["REQUEST_METHOD"]) !== "post");
-		json_fail(2, "something went wrong", !array_key_exists("userfile", $_FILES));
+		json_fail(2, "wrong HTTP method", strtolower($_SERVER["REQUEST_METHOD"]) !== "post");
+		json_fail(3, "something went wrong", !array_key_exists("userfile", $_FILES));
 
 		$userfile = $_FILES["userfile"];
 
-		json_fail(3, "something went wrong [" . $userfile["error"] . "]", $userfile["error"] !== 0);
-		json_fail(4, "folders not supported", file_get_contents($userfile["tmp_name"]) === "null");
+		json_fail(4, "something went wrong [" . $userfile["error"] . "]", $userfile["error"] !== 0);
+		json_fail(5, "folders not supported", file_get_contents($userfile["tmp_name"]) === "null");
 
 		$upload_dir = $this->app->to_path($href);
 
-		json_fail(5, "upload dir no h5ai folder or ignored", !$this->app->is_managed_url($href) || $this->app->is_hidden($upload_dir));
+		json_fail(6, "upload dir no h5ai folder or ignored", !$this->app->is_managed_url($href) || $this->app->is_hidden($upload_dir));
 
 		$dest = $upload_dir . "/" . urldecode($userfile["name"]);
 
-		json_fail(6, "already exists", file_exists($dest));
-		json_fail(7, "can't move uploaded file", !move_uploaded_file($userfile["tmp_name"], $dest));
+		json_fail(7, "already exists", file_exists($dest));
+		json_fail(8, "can't move uploaded file", !move_uploaded_file($userfile["tmp_name"], $dest));
 		json_exit();
 	}
 

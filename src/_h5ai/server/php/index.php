@@ -43,7 +43,7 @@ if ($options["security"]["enabled"] &&
 	exit;
 }
 else if (has_request_param("action")) {
-	header("Content-type: application/json;charset=utf-8");
+//	header("Content-type: application/json;charset=utf-8");
 	$api = new Api($app);
 	$api->apply();
 } else {

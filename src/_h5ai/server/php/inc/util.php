@@ -96,7 +96,7 @@ function exec_cmdv($cmdv) {
 }
 
 
-function delete_path($path, $recursive = false) {
+function delete_path($path, $recursive = true) {
 
 	if (is_file($path)) {
 		return @unlink($path);
